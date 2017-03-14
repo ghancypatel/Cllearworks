@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using Cllearworks.COH.BusinessManager.Users;
+using Cllearworks.COH.Repository.Users;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +14,12 @@ namespace Cllearworks.COH.Web.Utility.Auth
         private bool _disposed;
         public bool DisposeContext { get; set; }
 
+        public IUsersRepository _userRepository { get; set; }
+
         public COHUserStore()
         {
             DisposeContext = true;
+            _userRepository = new UsersRepository();
         }
 
         public Task CreateAsync(COHApplicationUser user)
@@ -40,12 +45,25 @@ namespace Cllearworks.COH.Web.Utility.Auth
 
         public Task<COHApplicationUser> FindByNameAsync(string userName)
         {
-            throw new NotImplementedException();
+            var user = _userRepository.GetUserByEmail(userName);
+            if (user != null)
+            {
+                return Task.FromResult(new COHApplicationUser() {
+                    UserName = user.Email,
+                    Id = user.Id.ToString(),
+                    PasswordHash = user.PasswordHash,
+                    Salt = user.Salt
+                });
+            }
+            return Task.FromResult(new COHApplicationUser());
         }
 
         public Task<string> GetPasswordHashAsync(COHApplicationUser user)
         {
-            throw new NotImplementedException();
+            if (user == null)
+                throw new ArgumentNullException("user");
+
+            return Task.FromResult(user.PasswordHash);
         }
 
         public Task<bool> HasPasswordAsync(COHApplicationUser user)
@@ -55,7 +73,8 @@ namespace Cllearworks.COH.Web.Utility.Auth
 
         public Task SetPasswordHashAsync(COHApplicationUser user, string passwordHash)
         {
-            throw new NotImplementedException();
+            user.PasswordHash = passwordHash;
+            return Task.FromResult(0);
         }
 
         public Task UpdateAsync(COHApplicationUser user)
@@ -66,6 +85,12 @@ namespace Cllearworks.COH.Web.Utility.Auth
         protected virtual void Dispose(bool disposing)
         {
             _disposed = true;
+        }
+
+        private void ThrowIfDisposed()
+        {
+            if (_disposed)
+                throw new ObjectDisposedException(GetType().Name);
         }
     }
 }

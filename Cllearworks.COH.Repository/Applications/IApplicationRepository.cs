@@ -11,5 +11,6 @@ namespace Cllearworks.COH.Repository.Applications
         Task<IQueryable<Application>> GetApplications();
         Task<Application> GetApplication(int id);
         bool VerifyApplicationSecret(Guid clientId, Guid clientSecret);
+        Task<bool> VerifyApplicationSecretAsync(Guid clientId, Guid clientSecret);
     }
 }

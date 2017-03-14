@@ -33,6 +33,11 @@
           <Property Name="FirstName" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="LastName" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PasswordHash" Type="varchar(max)" Nullable="false" />
+          <Property Name="Salt" Type="varchar(max)" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
         </EntityType>
         <Association Name="FK__Applicati__FKApp__164452B1">
           <End Role="Applications" Type="Self.Applications" Multiplicity="0..1" />
@@ -59,19 +64,10 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="COHModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-        </EntityType>
         <EntityContainer Name="COHEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="Applications" EntityType="COHModel.Application" />
           <EntitySet Name="ApplicationTokens" EntityType="COHModel.ApplicationToken" />
+          <EntitySet Name="Users" EntityType="COHModel.User" />
           <AssociationSet Name="FK__Applicati__FKApp__164452B1" Association="COHModel.FK__Applicati__FKApp__164452B1">
             <End Role="Application" EntitySet="Applications" />
             <End Role="ApplicationToken" EntitySet="ApplicationTokens" />
@@ -99,6 +95,20 @@
           <Property Name="FKApplication" Type="Int32" />
           <NavigationProperty Name="Application" Relationship="COHModel.FK__Applicati__FKApp__164452B1" FromRole="ApplicationToken" ToRole="Application" />
         </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PasswordHash" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Salt" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
         <Association Name="FK__Applicati__FKApp__164452B1">
           <End Type="COHModel.Application" Role="Application" Multiplicity="0..1" />
           <End Type="COHModel.ApplicationToken" Role="ApplicationToken" Multiplicity="*" />
@@ -117,16 +127,6 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="COHModelStoreContainer" CdmEntityContainer="COHEntities">
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="COHModel.User">
-              <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Applications">
             <EntityTypeMapping TypeName="COHModel.Application">
               <MappingFragment StoreEntitySet="Applications">
@@ -145,6 +145,21 @@
                 <ScalarProperty Name="FKApplication" ColumnName="FKApplication" />
                 <ScalarProperty Name="Expiration" ColumnName="Expiration" />
                 <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="COHModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Salt" ColumnName="Salt" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

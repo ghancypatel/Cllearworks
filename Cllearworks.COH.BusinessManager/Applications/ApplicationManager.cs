@@ -33,5 +33,10 @@ namespace Cllearworks.COH.BusinessManager.Applications
         {
             return _applicationRepository.VerifyApplicationSecret(clientId, clientSecret);
         }
+
+        public async Task<bool> VerifyApplicationSecretAsync(Guid clientId, Guid clientSecret)
+        {
+            return await _applicationRepository.VerifyApplicationSecretAsync(clientId, clientSecret);
+        }
     }
 }

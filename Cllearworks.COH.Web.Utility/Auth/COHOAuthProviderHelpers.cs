@@ -39,7 +39,6 @@ namespace Cllearworks.COH.Web.Utility.Auth
         /// <returns></returns>
         public static Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
-            //TODO: Need to validate client id and client secreat
             string clientId;
             string clientSecret;
             if (context.TryGetBasicCredentials(out clientId, out clientSecret) ||
@@ -73,13 +72,31 @@ namespace Cllearworks.COH.Web.Utility.Auth
             }
         }
 
-        public static Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
+        public static async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            var identity = new ClaimsIdentity(new GenericIdentity(context.UserName, OAuthDefaults.AuthenticationType));
+            //var identity = new ClaimsIdentity(new GenericIdentity(context.UserName, OAuthDefaults.AuthenticationType));
+            //context.Validated(identity);
+
+            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
+
+            COHUserManager _manager = new COHUserManager();
+
+            COHApplicationUser user = await _manager.FindAsync(context.UserName, context.Password);
+
+            if (user == null)
+            {
+                context.SetError("invalid_grant", "The user name or password is incorrect.");
+                return;
+            }
+
+            //var identity = new ClaimsIdentity(context.Options.AuthenticationType);
+            //identity.AddClaim(new Claim("sub", context.UserName));
+            //identity.AddClaim(new Claim("role", "user"));
+            var identity = await _manager.CreateIdentityAsync(user, OAuthDefaults.AuthenticationType);
 
             context.Validated(identity);
 
-            return Task.FromResult(0);
+            return;
         }
 
         public static Task GrantClientCredetails(OAuthGrantClientCredentialsContext context)

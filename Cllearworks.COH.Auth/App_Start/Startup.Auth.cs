@@ -43,11 +43,13 @@ namespace Cllearworks.COH.Auth
             {
                 AuthorizeEndpointPath = new PathString("/OAuth/Authorize"),
                 TokenEndpointPath = new PathString("/OAuth/Token"),
+                AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
                 ApplicationCanDisplayErrors = true,
 #if DEBUG
                 AllowInsecureHttp = true,
 #endif
                 // Authorization server provider which controls the lifecycle of Authorization Server
+                //Provider = new COHAuthorizationServerProvider(),
                 Provider = new OAuthAuthorizationServerProvider
                 {
                     OnValidateClientRedirectUri = COHOAuthProviderHelpers.ValidateClientRedirectUri,

@@ -25,8 +25,8 @@ namespace Cllearworks.COH.Repository
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Application> Applications { get; set; }
         public virtual DbSet<ApplicationToken> ApplicationTokens { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }

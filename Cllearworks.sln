@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cllearworks.COH.Auth", "Cll
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cllearworks.COH.Web.Utility", "Cllearworks.COH.Web.Utility\Cllearworks.COH.Web.Utility.csproj", "{59C10876-02DA-4A58-98D7-9C8DBF402B3A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cllearworks.COH.Utility", "Cllearworks.COH.Utility\Cllearworks.COH.Utility.csproj", "{AD459FC1-5E29-4FFD-920B-04C154FC437C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{59C10876-02DA-4A58-98D7-9C8DBF402B3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59C10876-02DA-4A58-98D7-9C8DBF402B3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59C10876-02DA-4A58-98D7-9C8DBF402B3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD459FC1-5E29-4FFD-920B-04C154FC437C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD459FC1-5E29-4FFD-920B-04C154FC437C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD459FC1-5E29-4FFD-920B-04C154FC437C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD459FC1-5E29-4FFD-920B-04C154FC437C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,5 +64,6 @@ Global
 		{03D20341-72B3-4DAF-B740-CD856C34E59F} = {56C329C2-2692-4B11-AEB4-8A55B161A729}
 		{ABB2412E-BC23-4D24-9738-7251E917A933} = {56C329C2-2692-4B11-AEB4-8A55B161A729}
 		{59C10876-02DA-4A58-98D7-9C8DBF402B3A} = {56C329C2-2692-4B11-AEB4-8A55B161A729}
+		{AD459FC1-5E29-4FFD-920B-04C154FC437C} = {56C329C2-2692-4B11-AEB4-8A55B161A729}
 	EndGlobalSection
 EndGlobal

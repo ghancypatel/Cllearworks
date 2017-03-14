@@ -18,5 +18,10 @@ namespace Cllearworks.COH.Repository
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
+        public string PasswordHash { get; set; }
+        public string Salt { get; set; }
+        public bool IsActive { get; set; }
+        public System.DateTime CreatedOn { get; set; }
+        public System.DateTime UpdatedOn { get; set; }
     }
 }

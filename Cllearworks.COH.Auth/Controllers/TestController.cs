@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cllearworks.COH.Web.Utility.Auth;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -17,6 +18,14 @@ namespace Cllearworks.COH.Auth.Controllers
         public IHttpActionResult GetTest()
         {
             return Ok("You are authorize");
+        }
+
+        [HttpGet]
+        [Route("UserAuth")]
+        [UserAuthorize]
+        public IHttpActionResult GetTestUserAuth()
+        {
+            return Ok("Only user auth");
         }
 
         [Route("NotAuth")]

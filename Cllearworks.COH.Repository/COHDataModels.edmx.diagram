@@ -5,9 +5,9 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="2422e2075a294c01acd3176171eb8243" Name="Diagram1">
-        <EntityTypeShape EntityType="COHModel.User" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="COHModel.Application" Width="1.5" PointX="3.375" PointY="1" />
-        <EntityTypeShape EntityType="COHModel.ApplicationToken" Width="1.5" PointX="5.625" PointY="1.125" />
+        <EntityTypeShape EntityType="COHModel.Application" Width="1.5" PointX="0.75" PointY="1" />
+        <EntityTypeShape EntityType="COHModel.ApplicationToken" Width="1.5" PointX="3" PointY="1.125" />
+        <EntityTypeShape EntityType="COHModel.User" Width="1.5" PointX="0.75" PointY="4.75" />
         <AssociationConnector Association="COHModel.FK__Applicati__FKApp__164452B1" />
       </Diagram>
     </edmx:Diagrams>

@@ -28,5 +28,12 @@ namespace Cllearworks.COH.Repository.Applications
         {
             return Context.Applications.Any(a => a.ClientId == clientId && a.ClientSecret == clientSecret);
         }
+
+        public async Task<bool> VerifyApplicationSecretAsync(Guid clientId, Guid clientSecret)
+        {
+            return await Task.Run(() => {
+                return Context.Applications.Any(a => a.ClientId == clientId && a.ClientSecret == clientSecret);
+            });
+        }
     }
 }

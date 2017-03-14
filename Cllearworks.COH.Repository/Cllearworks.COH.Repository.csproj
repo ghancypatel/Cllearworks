@@ -60,7 +60,6 @@
     <Compile Include="Applications\ApplicationRepository.cs" />
     <Compile Include="Applications\IApplicationRepository.cs" />
     <Compile Include="BaseRepository.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="COHDataModels.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
