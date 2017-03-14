@@ -15,26 +15,26 @@ namespace Cllearworks.COH.Auth
         public void ConfigureAuth(IAppBuilder app)
         {
             // Enable the Application Sign In Cookie.
-            app.UseCookieAuthentication(new CookieAuthenticationOptions
-            {
-                AuthenticationType = "Application",
-                AuthenticationMode = AuthenticationMode.Passive,
-                LoginPath = new PathString("/Account/Login"),
-                LogoutPath = new PathString("/Account/Logout"),
-                ExpireTimeSpan = TimeSpan.FromMinutes(30),
-                SlidingExpiration = true,
-                CookieName = "COHApp"
-            });
+            //app.UseCookieAuthentication(new CookieAuthenticationOptions
+            //{
+            //    AuthenticationType = "Application",
+            //    AuthenticationMode = AuthenticationMode.Passive,
+            //    LoginPath = new PathString("/Account/Login"),
+            //    LogoutPath = new PathString("/Account/Logout"),
+            //    ExpireTimeSpan = TimeSpan.FromMinutes(30),
+            //    SlidingExpiration = true,
+            //    CookieName = "COHApp"
+            //});
 
             // Enable the External Sign In Cookie.
-            app.SetDefaultSignInAsAuthenticationType("External");
-            app.UseCookieAuthentication(new CookieAuthenticationOptions
-            {
-                AuthenticationType = "External",
-                AuthenticationMode = AuthenticationMode.Passive,
-                CookieName = CookieAuthenticationDefaults.CookiePrefix + "External",
-                ExpireTimeSpan = TimeSpan.FromMinutes(5),
-            });
+            //app.SetDefaultSignInAsAuthenticationType("External");
+            //app.UseCookieAuthentication(new CookieAuthenticationOptions
+            //{
+            //    AuthenticationType = "External",
+            //    AuthenticationMode = AuthenticationMode.Passive,
+            //    CookieName = CookieAuthenticationDefaults.CookiePrefix + "External",
+            //    ExpireTimeSpan = TimeSpan.FromMinutes(5),
+            //});
 
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
 
@@ -49,14 +49,14 @@ namespace Cllearworks.COH.Auth
                 AllowInsecureHttp = true,
 #endif
                 // Authorization server provider which controls the lifecycle of Authorization Server
-                //Provider = new COHAuthorizationServerProvider(),
-                Provider = new OAuthAuthorizationServerProvider
-                {
-                    OnValidateClientRedirectUri = COHOAuthProviderHelpers.ValidateClientRedirectUri,
-                    OnValidateClientAuthentication = COHOAuthProviderHelpers.ValidateClientAuthentication,
-                    OnGrantResourceOwnerCredentials = COHOAuthProviderHelpers.GrantResourceOwnerCredentials,
-                    OnGrantClientCredentials = COHOAuthProviderHelpers.GrantClientCredetails
-                },
+                Provider = new COHAuthorizationServerProvider(),
+                //Provider = new OAuthAuthorizationServerProvider
+                //{
+                //    OnValidateClientRedirectUri = COHOAuthProviderHelpers.ValidateClientRedirectUri,
+                //    OnValidateClientAuthentication = COHOAuthProviderHelpers.ValidateClientAuthentication,
+                //    OnGrantResourceOwnerCredentials = COHOAuthProviderHelpers.GrantResourceOwnerCredentials,
+                //    OnGrantClientCredentials = COHOAuthProviderHelpers.GrantClientCredetails
+                //},
 
                 //AccessTokenProvider = new AuthenticationTokenProvider
                 //{

@@ -29,6 +29,12 @@ namespace Cllearworks.COH.BusinessManager.Applications
             return _applicationMapper.ConvertToModel(app);
         }
 
+        public async Task<ApplicationModel> GetApplicationByClientId(Guid clientId)
+        {
+            var app = await _applicationRepository.GetApplicationByClientId(clientId);
+            return _applicationMapper.ConvertToModel(app);
+        }
+
         public bool VerifyApplicationSecret(Guid clientId, Guid clientSecret)
         {
             return _applicationRepository.VerifyApplicationSecret(clientId, clientSecret);

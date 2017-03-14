@@ -19,6 +19,8 @@ namespace Cllearworks.COH.Web.Utility.Auth
 
         public string ApplicationId { get; set; }
 
+        public string ApplicationName { get; set; }
+
         public string ClientId { get; set; }
     }
 }

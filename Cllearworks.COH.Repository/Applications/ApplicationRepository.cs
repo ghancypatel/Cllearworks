@@ -16,6 +16,14 @@ namespace Cllearworks.COH.Repository.Applications
             });
         }
 
+        public async Task<Application> GetApplicationByClientId(Guid clientId)
+        {
+            return await Task.Run(() =>
+            {
+                return Context.Applications.Where(a => a.ClientId == clientId).FirstOrDefault();
+            });
+        }
+
         public async Task<IQueryable<Application>> GetApplications()
         {
             return await Task.Run(() =>

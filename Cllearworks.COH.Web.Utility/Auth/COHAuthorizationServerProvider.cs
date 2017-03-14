@@ -28,6 +28,30 @@ namespace Cllearworks.COH.Web.Utility.Auth
                     context.SetError("Invalid client id and client secret");
                 }
             }
+            return;
+        }
+
+        public override async Task GrantClientCredentials(OAuthGrantClientCredentialsContext context)
+        {
+            //var identity = new ClaimsIdentity(new GenericIdentity(context.ClientId, OAuthDefaults.AuthenticationType));
+            //context.Validated(identity);
+
+            var clientGuid = Guid.Parse(context.ClientId);
+            var appManager = new ApplicationManager();
+            var app = await appManager.GetApplicationByClientId(clientGuid);
+            var user = new COHApplicationUser();
+            if (app != null)
+            {
+                user.ClientId = clientGuid.ToString("N");
+                user.ApplicationName = app.Name;
+                user.ApplicationId = app.Id.ToString();
+            }
+
+            var userManager = new COHUserManager();
+            var identity = userManager.CreateIdentityAsync(user, OAuthDefaults.AuthenticationType).Result;
+            context.Validated(identity);
+
+            return;
         }
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
@@ -52,6 +76,7 @@ namespace Cllearworks.COH.Web.Utility.Auth
 
             context.Validated(identity);
 
+            return;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Cllearworks.COH.BusinessManager.Applications;
+using Cllearworks.COH.Repository.Applications;
 using Microsoft.Owin.Security.Infrastructure;
 using Microsoft.Owin.Security.OAuth;
 using System;
@@ -39,21 +40,22 @@ namespace Cllearworks.COH.Web.Utility.Auth
         /// <returns></returns>
         public static Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
-            string clientId;
-            string clientSecret;
-            if (context.TryGetBasicCredentials(out clientId, out clientSecret) ||
-            context.TryGetFormCredentials(out clientId, out clientSecret))
-            {
-                var appManager = new ApplicationManager();
-                if (appManager.VerifyApplicationSecret(Guid.Parse(clientId), Guid.Parse(clientSecret)))
-                {
-                    context.Validated();
-                }
-                else
-                {
-                    context.SetError("Invalid client id and client secret");
-                }
-            }
+            //string clientId;
+            //string clientSecret;
+            //if (context.TryGetBasicCredentials(out clientId, out clientSecret) ||
+            //context.TryGetFormCredentials(out clientId, out clientSecret))
+            //{
+            //    var appManager = new ApplicationManager();
+            //    if (appManager.VerifyApplicationSecret(Guid.Parse(clientId), Guid.Parse(clientSecret)))
+            //    {
+            //        context.Validated();
+            //    }
+            //    else
+            //    {
+            //        context.SetError("Invalid client id and client secret");
+            //    }
+            //}
+            context.Validated();
             return Task.FromResult(0);
         }
 
@@ -99,11 +101,27 @@ namespace Cllearworks.COH.Web.Utility.Auth
             return;
         }
 
-        public static Task GrantClientCredetails(OAuthGrantClientCredentialsContext context)
+        public static async Task GrantClientCredetails(OAuthGrantClientCredentialsContext context)
         {
-            var identity = new ClaimsIdentity(new GenericIdentity(context.ClientId, OAuthDefaults.AuthenticationType));
+            //var identity = new ClaimsIdentity(new GenericIdentity(context.ClientId, OAuthDefaults.AuthenticationType));
+            //context.Validated(identity);
+
+            var clientGuid = Guid.Parse(context.ClientId);
+            var appManager = new ApplicationManager();
+            var app = await appManager.GetApplicationByClientId(clientGuid);
+            var user = new COHApplicationUser();
+            if (app != null)
+            {
+                user.ClientId = clientGuid.ToString("N");
+                user.ApplicationName = app.Name;
+                user.ApplicationId = app.Id.ToString();
+            }
+
+            var userManager = new COHUserManager();
+            var identity = userManager.CreateIdentityAsync(user, OAuthDefaults.AuthenticationType).Result;
             context.Validated(identity);
-            return Task.FromResult(0);
+
+            return;
         }
         
 

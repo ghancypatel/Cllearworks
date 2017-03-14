@@ -26,6 +26,8 @@ namespace Cllearworks.COH.Web.Utility.Auth
                 id.AddClaim(new Claim(Constants.ClientIdClaimType, user.ClientId, "http://www.w3.org/2001/XMLSchema#string"));
             if (!string.IsNullOrEmpty(user.ApplicationId))
                 id.AddClaim(new Claim(Constants.ApplicationIdClaimType, user.ApplicationId, "http://www.w3.org/2001/XMLSchema#string"));
+            if (!string.IsNullOrEmpty(user.ApplicationName))
+                id.AddClaim(new Claim(Constants.ApplicationNameClaimType, user.ApplicationName, "http://www.w3.org/2001/XMLSchema#string"));
             if (!string.IsNullOrEmpty(user.Id))
                 id.AddClaim(new Claim(UserIdClaimType, user.Id, "http://www.w3.org/2001/XMLSchema#string"));
             if (!string.IsNullOrEmpty(user.UserName))
